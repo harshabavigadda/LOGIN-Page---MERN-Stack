@@ -16,16 +16,16 @@ function Signup() {
     axios.post('http://localhost:8000/signup', { name, email, password })
       .then((result) => {
 
-        if (result.data === 'Already registered') {
+        if (result.data === 'User found') {
           // already regis
           setNotify('Already registered please Sign in')
           setTimeout(() => {
             navigate('/signin');
-          }, 1000);
+          }, 2000);
           
         } else {
           // new regis
-          setNotify('Registered Successfully')
+          setNotify('Registered Successfully....!')
           setTimeout(() => {
             navigate('/home');
           }, 1000); 
