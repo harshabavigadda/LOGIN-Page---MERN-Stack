@@ -84,6 +84,9 @@ app.post('/signin', (req,res)=>{
                 }
             })
         }
+        else{
+            return res.json("No user found please signup")
+        }
     })
 })
 

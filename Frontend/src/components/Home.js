@@ -1,5 +1,6 @@
 import React from 'react'
 import {useNavigate} from 'react-router-dom'
+import Footer from './Footer';
 
 function Home() {
 
@@ -12,6 +13,7 @@ function Home() {
   }
 
   return (
+    <>
     <div className='bg-blue-600 flex mt-1.5 rounded-full'>
       <h1 className='text-white mt-1 font-bold flex justify-center ml-40'>WELCOME TO DASHBOARD</h1>
       <button
@@ -21,6 +23,9 @@ function Home() {
         Logout
       </button>
     </div>
+    <div className='h-screen bg-white'></div>
+    <Footer/>
+    </>
   )
 }
 

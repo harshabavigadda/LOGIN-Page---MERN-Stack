@@ -2,6 +2,7 @@ import React,{useState} from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios';
 import {useNavigate} from "react-router-dom"
+import Footer from './Footer';
 
 
 function Signin() {
@@ -34,6 +35,7 @@ function Signin() {
     }
     
   return (
+    <>
     <div className='flex items-center justify-center bg-[#d4d4d8] h-screen'>
     <div className='w-full max-w-md mx-auto shadow-xl rounded-lg pl-20 pr-20 bg-white'>
     <div className='mb-3 ml-24'>
@@ -75,6 +77,8 @@ function Signin() {
       </Link>
     </div>
   </div>
+  <Footer/>
+  </>
   )
 }
 
