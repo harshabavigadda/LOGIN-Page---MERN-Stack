@@ -1,8 +1,8 @@
 const express = require('express')
-/*const mongoose = require('mongoose')*/
-const sql = require('mysql')
+const mongoose = require('mongoose')
+//const sql = require('mysql')
 const cors = require('cors')
-/*const models = require('./schema')*/
+const models = require('./schema')
 
 const app = express()
 app.use(express.json())
@@ -11,9 +11,9 @@ app.use(cors({
     origin : "http://localhost:3000"
 }))
 
-//mongoose.connect("mongodb://localhost:27017/datab")
+mongoose.connect("mongodb://localhost:27017/datab")
 
-const db = sql.createConnection({
+/*const db = sql.createConnection({
     host: "localhost",
     user: "root",
     password: "password",
@@ -88,9 +88,9 @@ app.post('/signin', (req,res)=>{
             return res.json("No user found please signup")
         }
     })
-})
+})*/
 
-/*app.post('/signup', (req, res)=>{
+app.post('/signup', (req, res)=>{
 
     const {name, email, password} = req.body;
     models.findOne({email: email})
@@ -124,9 +124,9 @@ app.post('/signin', (req, res)=>{
         }
     })
 })
-*/
 
 
-app.listen(8000, ()=>{
+
+app.listen(7000, ()=>{
     console.log("server started")
 })

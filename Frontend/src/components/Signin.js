@@ -9,6 +9,7 @@ function Signin() {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
     const [notify, setNotify] = useState('');
+    const [val,setval] = useState("");
     const navigate = useNavigate()
 
     const handleSubmit = (event) => {
@@ -32,6 +33,12 @@ function Signin() {
             }
         })
         .catch(err => console.log(err))
+    }
+
+    const handle = (event) => {
+      event.preventDefault();
+
+      
     }
     
   return (
@@ -75,6 +82,18 @@ function Signin() {
       className='w-3/4 ml-8 mb-3 border-2 border-blue-600 bg-white text-[#09090b] px-4 py-1.5 rounded-full'>Sign Up
       </button>
       </Link>
+      <textarea
+      placeholder='ok'
+      rows="4"
+      cols="40"
+      className='bg-gray-400'
+      onChange={(e) => setval(e.target.value)}
+      />
+      <button
+      onClick={handle}
+      >
+        okkooko
+      </button>
     </div>
   </div>
   <Footer/>
