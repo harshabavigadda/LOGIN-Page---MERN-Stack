@@ -1,17 +1,29 @@
-const express = require('express')
-const mongoose = require('mongoose')
+import express from "express";
+import mongoose from "mongoose";
 //const sql = require('mysql')
-const cors = require('cors')
-const models = require('./schema')
+import cors from "cors";
+import cookieParser from "cookie-parser";
+import dotenv from "dotenv";
+import { router as userRoute } from "./routes/user.route.js";
 
-const app = express()
-app.use(express.json())
-app.use(cors({
-    credentials : true,
-    origin : "http://localhost:3000"
-}))
+dotenv.config();
+const app = express();
 
-mongoose.connect("mongodb://localhost:27017/datab")
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(cookieParser());
+app.use(
+  cors({
+    credentials: true,
+    origin: "http://localhost:3000",
+  })
+);
+
+
+mongoose.connect(process.env.MONGO_URL)
+  .then(() => console.log('Database connection successful'))
+  .catch(err => console.error('Database connection error:', err));
+
 
 /*const db = sql.createConnection({
     host: "localhost",
@@ -90,43 +102,44 @@ app.post('/signin', (req,res)=>{
     })
 })*/
 
-app.post('/signup', (req, res)=>{
+// app.post('/signup', (req, res)=>{
 
-    const {name, email, password} = req.body;
-    models.findOne({email: email})
-    .then(user => {
-        if(user){
-            res.json("Already registered")
-        }
-        else{
-            models.create(req.body)
-            .then(log => res.json(log))
-            .catch(err => res.json(err))
-        }
-    })  
-})
+//     const {name, email, password} = req.body;
+//     models.findOne({email: email})
+//     .then(user => {
+//         if(user){
+//             res.json("Already registered")
+//         }
+//         else{
+//             models.create(req.body)
+//             .then(log => res.json(log))
+//             .catch(err => res.json(err))
+//         }
+//     })
+// })
 
-app.post('/signin', (req, res)=>{
+// app.post('/signin', (req, res)=>{
 
-    const {email, password} = req.body;
-    models.findOne({email: email})
-    .then(user => {
-        if(user){
-            if(user.password === password) {
-                res.json("Success");
-            }
-            else{
-                res.json("Pass wrong");
-            }
-        }
-        else{
-            res.json("No user found");
-        }
-    })
-})
+//     const {email, password} = req.body;
+//     models.findOne({email: email})
+//     .then(user => {
+//         if(user){
+//             if(user.password === password) {
+//                 res.json("Success");
+//             }
+//             else{
+//                 res.json("Pass wrong");
+//             }
+//         }
+//         else{
+//             res.json("No user found");
+//         }
+//     })
+// })
 
+app.use("/api", userRoute);
 
-
-app.listen(7000, ()=>{
-    console.log("server started")
-})
+const port = process.env.PORT || 7000;
+app.listen(port, () => {
+  console.log(`server started ${port}`);
+});
