@@ -11,7 +11,7 @@ const verifyUser = async (req, res, next) => {
       return next();
     }
     console.log("no refresh")
-    return; // Ensure to return after sending the response in generateToken
+    return;
   } else {
     jwt.verify(accessToken, process.env.ACCESS_TOKEN_KEY, (err, decoded) => {
       if (err) {

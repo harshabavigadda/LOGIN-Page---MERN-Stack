@@ -1,11 +1,9 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import {useNavigate} from 'react-router-dom'
-import Footer from './Footer';
 import axios from "axios";
 import url from "../url.js";
 
 function Dashboard() {
-
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -16,10 +14,20 @@ function Dashboard() {
       console.error(err)
     })
   },[])
+
   const handleClick = (event) => {
     event.preventDefault()
 
-    navigate('/login');
+    axios.post(url + "/dashboard", {message: "Logout"})
+    .then((result) => {
+      console.log(result);
+      if(result.data.success){
+        navigate('/login');
+      }else{
+        alert(result.data.data);
+      }
+    }).catch((err) => console.log(err));
+
   }
 
   return (
@@ -34,7 +42,6 @@ function Dashboard() {
       </button>
     </div>
     <div className='h-screen bg-white'></div>
-    <Footer/>
     </>
   )
 }

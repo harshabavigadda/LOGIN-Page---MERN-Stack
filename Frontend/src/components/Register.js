@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import axios from "axios";
-import Footer from "./Footer.js";
 import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -18,25 +17,15 @@ function Register() {
     axios
       .post(url + "/register", { userName, email, password })
       .then((result) => {
-        console.log(result.data);
-        if(result.data.success){
+        // console.log(result.data);
+        if (result.data.success) {
           toast.success("Resitration Sccessfully Done");
           setTimeout(() => {
-                navigate("/login");
-              }, 2000);
-        }else {
-          toast.error(result.data.error);
+            navigate("/login");
+          }, 2000);
+        } else {
+          toast.error(result.data.data);
         }
-        // if (result.data) {
-        //   setTimeout(() => {
-        //     navigate("/login");
-        //   }, 2000);
-        // } else {
-        //   // new regis
-        //   setTimeout(() => {
-        //     navigate("/dashboard");
-        //   }, 1000);
-        // }
       })
       .catch((err) => console.log(err));
   };
@@ -49,15 +38,17 @@ function Register() {
             <h1 className="font-bold mt-3 text-2xl">User Registration</h1>
           </div>
           <form onSubmit={handleSubmit}>
-            <div className="mb-5">
+            <div className="mb-2">
+            <label className="ml-1">User Name <span className="text-red-600 font-semibold text-lg">*</span></label>
               <input
                 className="border border-[#3f3f46]/50 p-2 focus:border-blue-600 shadow-md rounded-lg focus:outline-none w-full py-1.5"
                 type="text"
                 onChange={(e) => setName(e.target.value)}
-                placeholder="Name"
+                placeholder="User name"
               />
             </div>
-            <div className="mb-5">
+            <div className="mb-2">
+            <label className="ml-1">E-mail <span className="text-red-600 font-semibold text-lg">*</span></label>
               <input
                 className="border border-[#3f3f46]/50 p-2 focus:border-blue-600 shadow-md rounded-lg focus:outline-none w-full py-1.5"
                 type="email"
@@ -67,6 +58,7 @@ function Register() {
               />
             </div>
             <div className="mb-5">
+            <label className="ml-1">Password <span className="text-red-600 font-semibold text-lg">*</span></label>
               <input
                 type="password"
                 onChange={(e) => setPassword(e.target.value)}
@@ -81,7 +73,10 @@ function Register() {
             >
               Register
             </button>
-            <h1 className="mt-2 mb-5  text-[#a1a1aa] "> Already have an account ? </h1>
+            <h1 className="mt-2 mb-5  text-[#a1a1aa] ">
+              {" "}
+              Already have an account ?{" "}
+            </h1>
           </form>
           <Link to="/login">
             <button
@@ -93,7 +88,6 @@ function Register() {
           </Link>
         </div>
       </div>
-      <Footer />
       <ToastContainer
         position="top-center"
         autoClose={1500}
@@ -105,7 +99,7 @@ function Register() {
         draggable
         pauseOnHover={false}
         theme="dark"
-        transition= {Bounce}
+        transition={Bounce}
       />
     </>
   );
