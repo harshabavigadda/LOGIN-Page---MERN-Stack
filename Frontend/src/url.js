@@ -1,4 +1,4 @@
 // const url = "http://localhost:6001/api"
-const url = "https://server-auth-ge4b.onrender.com/api"
+const url = "https://server-auth-henna.vercel.app/api"
 
 export default url;
